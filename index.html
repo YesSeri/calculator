@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<style>
+
+    #container{
+        display: grid;
+        margin:auto;
+        max-width: 300px;
+        height : 400px;
+        padding-bottom:10px;
+        background:#66d;
+        border:black solid 1px;
+        grid-template-rows: repeat(8, 1fr);
+        border-radius: 5px;
+        font-family:monospace;
+        
+    }
+    #buttonBox{
+        margin-left:10px;
+        margin-right:10px;
+
+        display:grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-row-start: 3;
+        grid-row-end: 9;
+        grid-gap: 3px;
+    }
+    #answer{
+        grid-row-start: 1;
+        grid-row-end: 3;
+        background:#fff; 
+        margin:10px;
+        border-radius: 1px 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size:40px;
+
+    }
+    .button{
+        background:#333;
+        font-size : 20px;
+    }
+    .logo{
+        font-size:18px;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin:3px;
+        grid-column-start:3;
+        grid-column-end:5;
+        background-color:#d66;
+        border-radius: 15px 2px 15px 2px;
+    }
+    
+</style>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calculator</title>
+</head>
+<body>
+    <div id='container'>
+        <div id="answer"></div>
+        <div id='buttonBox'>
+            <button id=clear>C</button>
+            <button id="backspace">⌫</button>
+            <div class="logo">henrik inc.</div>
+            <button value='7' class="number">7</button>
+            <button value='8' class="number">8</button>
+            <button value='9' class="number">9</button>
+            <button id="divide">/</button>
+            <button value='4' class="number">4</button>
+            <button value='5' class="number">5</button>
+            <button value='6' class="number">6</button>
+            <button id="multiply">*</button>
+            <button value='1' class="number">1</button>
+            <button value='2' class="number">2</button>
+            <button value='3' class="number">3</button>
+            <button id="subtract" class='operator'>-</button>
+            <button value='0' class="number">0</button>
+            <button id="comma" class='operator'>.</button>
+            <button id="equals" class='operator'>=</button>
+            <button id="add" class='operator'>+</button>
+        </div>        
+    </div>
+    <script src="script.js" defer> </script>
+</body>
