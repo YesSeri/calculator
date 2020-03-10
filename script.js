@@ -8,30 +8,40 @@ function operate(x, y, operator){
 	y = Number(y)
 	switch (operator) {
 		case '+' :
-			console.log(`${y} ${operator} ${x} = ${add(x, y, operator)}`)
 			return add(x, y, operator);
 		case '-' : 
-			console.log(`${y} ${operator} ${x} = ${subtract(x, y, operator)}`)
 			return subtract(x, y, operator);
 		case '*' :
-			console.log(`${y} ${operator} ${x} = ${multiply(x, y, operator)}`)
 			return multiply(x, y, operator);
 		case '/' :
-			console.log(`${y} ${operator} ${x} = ${divide(x, y, operator)}`)
 			return divide(x, y, operator);
 	}
 }
-function clearBar(){
+function clearAnswerBar(){
 	document.getElementById('answer').innerHTML = null
 }
-function saveDisplayedToMem(){
+function saveDisplayedToMemory(){
 	memory = input
 	firstInput = false
 }
 
+function resetOperatorColor(){
+	operators.forEach(oper =>{
+		oper.style.backgroundColor = "#fcc";
+	})
+}
+
+function colorOperator(operator){
+	// let value = operator.value == '+' ? 'add' : operator.value == '-' ? 'subtract' : operator.value == '*' ? 'multiply' : 'divide'
+	// console.log(document.getElementsByClassName(value))
+	resetOperatorColor()
+	operator.style.backgroundColor = "#cfc";
+	coloredOperator = operator
+}
+
 const clear = document.querySelector('#clear')
 const numbers = document.querySelectorAll('.number');
-const operators = document.querySelectorAll('.operators')
+const operators = document.querySelectorAll('.add, .subtract, .multiply, .divide')
 const equal = document.querySelector('.equal')
 const comma = document.querySelector('.comma')
 const backspace = document.querySelector('#backspace')
@@ -42,26 +52,27 @@ let memory = 1
 let operatorValue = null
 let answer = null
 let clearViewNextNumberClick = false
-let chooseNumberOrOperator = 1
+let chooseNumberOrOperator = 1 // If I press a number after equal I want to start from a new calculation. If I press operator I want to continue operation on current number.
+let operatorMarkedColor = false
+let coloredOperator = null
 
 numbers.forEach(number => {
 	number.addEventListener('click', function (e){
-		if (clearViewNextNumberClick){
-			if(chooseNumberOrOperator == 2){
-				console.log('hey')
-				memory = 0
-				answer = null
-				input = 0
-				firstInput = true
+		if(document.getElementById('answer').textContent !== '0'){
+			if (clearViewNextNumberClick){
+				if(chooseNumberOrOperator == 2){
+					memory = 0
+					answer = null
+					input = 0
+					firstInput = true
+				}
+				input = document.getElementById('answer').innerHTML = number.value;
+				clearViewNextNumberClick = false
+				chooseNumberOrOperator = 1
+			}else{
+				input = document.getElementById('answer').innerHTML += number.value;
 			}
-			input = document.getElementById('answer').innerHTML = number.value;
-			clearViewNextNumberClick = false
-			chooseNumberOrOperator = 1
-		}else{
-			input = document.getElementById('answer').innerHTML += number.value;	
 		}
-		
-		
 	})
 })
 
@@ -69,21 +80,22 @@ operators.forEach(operator => {
 	operator.addEventListener('click', e => {
 		operatorValue = operator.value
 		if (firstInput){
-			saveDisplayedToMem()
+			saveDisplayedToMemory()
 		}
 		chooseNumberOrOperator = 1
 		clearViewNextNumberClick = true
+		colorOperator(operator)
 	})
 })
 clear.addEventListener('click', e => {
-	clearBar()
+	clearAnswerBar()
+	resetOperatorColor()
 	input = 0
 	memory = 0
 	firstInput = true
 })
 
 comma.addEventListener('click', e => {
-	console.log(document.getElementById('answer').innerHTML)
 	if(Number.isInteger(Number(document.querySelector('#answer').innerText)) && !clearViewNextNumberClick){
 		document.getElementById('answer').innerHTML = document.getElementById('answer').innerHTML + '.'
 	}
@@ -99,7 +111,11 @@ equal.addEventListener('click', e => {
 		firstInput=true
 	}
 	else if((input || memory) && operatorValue){
+		resetOperatorColor()
 		answer = operate(input, memory, operatorValue)
+		if (!Number.isInteger(answer)){
+			answer = Math.round(answer*100000)/100000
+		}
 		document.getElementById('answer').innerHTML = answer
 		memory = answer
 		clearViewNextNumberClick = true
