@@ -124,3 +124,7 @@ equal.addEventListener('click', e => {
 	
 })
 
+document.onkeypress = e => {
+    e = e || window.event;
+    console.log(e)
+};
