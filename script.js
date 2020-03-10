@@ -8,12 +8,16 @@ function operate(x, y, operator){
 	y = Number(y)
 	switch (operator) {
 		case '+' :
+			console.log(`${y} ${operator} ${x} = ${add(x, y, operator)}`)
 			return add(x, y, operator);
 		case '-' : 
+			console.log(`${y} ${operator} ${x} = ${subtract(x, y, operator)}`)
 			return subtract(x, y, operator);
 		case '*' :
+			console.log(`${y} ${operator} ${x} = ${multiply(x, y, operator)}`)
 			return multiply(x, y, operator);
 		case '/' :
+			console.log(`${y} ${operator} ${x} = ${divide(x, y, operator)}`)
 			return divide(x, y, operator);
 	}
 }
@@ -37,14 +41,22 @@ let input = 0
 let memory = 1
 let operatorValue = null
 let answer = null
-let usedComma = false
 let clearViewNextNumberClick = false
+let chooseNumberOrOperator = 1
 
 numbers.forEach(number => {
 	number.addEventListener('click', function (e){
 		if (clearViewNextNumberClick){
+			if(chooseNumberOrOperator == 2){
+				console.log('hey')
+				memory = 0
+				answer = null
+				input = 0
+				firstInput = true
+			}
 			input = document.getElementById('answer').innerHTML = number.value;
 			clearViewNextNumberClick = false
+			chooseNumberOrOperator = 1
 		}else{
 			input = document.getElementById('answer').innerHTML += number.value;	
 		}
@@ -59,6 +71,7 @@ operators.forEach(operator => {
 		if (firstInput){
 			saveDisplayedToMem()
 		}
+		chooseNumberOrOperator = 1
 		clearViewNextNumberClick = true
 	})
 })
@@ -70,14 +83,14 @@ clear.addEventListener('click', e => {
 })
 
 comma.addEventListener('click', e => {
-	if(Number.isInteger(Number(document.querySelector('#answer').innerText))){
-		document.getElementById('answer').innerHTML = input + '.'
-		usedComma = true
+	console.log(document.getElementById('answer').innerHTML)
+	if(Number.isInteger(Number(document.querySelector('#answer').innerText)) && !clearViewNextNumberClick){
+		document.getElementById('answer').innerHTML = document.getElementById('answer').innerHTML + '.'
 	}
 })
 
 backspace.addEventListener('click', e => {
-	document.getElementById('answer').innerHTML = document.getElementById('answer').innerHTML.slice(0, -1)
+	memory = document.getElementById('answer').innerHTML = document.getElementById('answer').innerHTML.slice(0, -1)
 })
 
 equal.addEventListener('click', e => {
@@ -89,6 +102,9 @@ equal.addEventListener('click', e => {
 		answer = operate(input, memory, operatorValue)
 		document.getElementById('answer').innerHTML = answer
 		memory = answer
+		clearViewNextNumberClick = true
+		chooseNumberOrOperator = 2
 	}
+	
 })
 
