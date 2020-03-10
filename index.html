@@ -1,7 +1,30 @@
 <!DOCTYPE html>
 
 <style>
+    button{
+        border-radius:5px;
+        font-size : 18px;
+        background-color:white;
+    }
+    #answer{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
 
+    }
+    #bottomBox{
+        display:grid;
+        grid-row-start: 2;
+        grid-row-end: 8;
+    }
+    #buttonBox{
+        margin-left:10px;
+        margin-right:10px;
+        display:grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 3px;
+    }
     #container{
         display: grid;
         margin:auto;
@@ -10,37 +33,21 @@
         padding-bottom:10px;
         background:#66d;
         border:black solid 1px;
-        grid-template-rows: repeat(8, 1fr);
+        grid-template-rows: repeat(6, 1fr);
         border-radius: 5px;
-        font-family:monospace;
-        
+        font-family:monospace;   
     }
-    #buttonBox{
-        margin-left:10px;
-        margin-right:10px;
-
-        display:grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-row-start: 3;
-        grid-row-end: 9;
-        grid-gap: 3px;
-    }
-    #answer{
-        grid-row-start: 1;
-        grid-row-end: 3;
-        background:#fff; 
-        margin:10px;
+    #topBox{
+        display:flex;
+        background:#fff;
         border-radius: 1px 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-size:40px;
-
+        font-size:22px;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        margin:10px 10px 10px 10px;
     }
-    .button{
-        background:#333;
-        font-size : 20px;
+    .answers{
+
     }
     .logo{
         font-size:18px;
@@ -54,6 +61,11 @@
         background-color:#d66;
         border-radius: 15px 2px 15px 2px;
     }
+    .pink{
+        background-color:#fcc;
+        color:blue;
+    }
+    
     
 </style>
 
@@ -63,28 +75,32 @@
 </head>
 <body>
     <div id='container'>
-        <div id='answer'></div>
-        <div id='buttonBox'>
-            <button id=clear>C</button>
-            <button id='backspace'>⌫</button>
-            <div class='logo'>henrik inc.</div>
-            <button value='7' class='number'>7</button>
-            <button value='8' class='number'>8</button>
-            <button value='9' class='number'>9</button>
-            <button id='divide'>/</button>
-            <button value='4' class='number'>4</button>
-            <button value='5' class='number'>5</button>
-            <button value='6' class='number'>6</button>
-            <button id='multiply'>*</button>
-            <button value='1' class='number'>1</button>
-            <button value='2' class='number'>2</button>
-            <button value='3' class='number'>3</button>
-            <button id='subtract' class='operator'>-</button>
-            <button value='0' class='number'>0</button>
-            <button id='comma' class='operator'>.</button>
-            <button id='equals' class='operator'>=</button>
-            <button id='add' class='operator'>+</button>
-        </div>        
+        <div id='topBox'>
+            <div id='answer' class="answers"></div>
+        </div>
+        <div id="bottomBox">
+            <div id='buttonBox'>
+                <button id='clear' class='pink'>C</button>
+                <button id='backspace' class='pink'>⌫</button>
+                <div class='logo'>henrik inc.</div>
+                <button value='7' class='number'>7</button>
+                <button value='8' class='number'>8</button>
+                <button value='9' class='number'>9</button>
+                <button value='/' class='pink operators'>/</button>
+                <button value='4' class='number'>4</button>
+                <button value='5' class='number'>5</button>
+                <button value='6' class='number'>6</button>
+                <button value='*' class='pink operators'>*</button>
+                <button value='1' class='number'>1</button>
+                <button value='2' class='number'>2</button>
+                <button value='3' class='number'>3</button>
+                <button value='-' class='pink operators'>-</button>
+                <button value='0' class='number'>0</button>
+                <button value='.' class='pink comma'>.</button>
+                <button value='=' class='pink equal'>=</button>
+                <button value='+' class='pink operators'>+</button>
+            </div> 
+        </div>       
     </div>
     <script src='script.js' defer> </script>
 </body>
